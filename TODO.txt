@@ -4,6 +4,7 @@ Bilder:
 
 Gui:
    * Erstellte Pizzen darstellen (main)
+   * Erstellte Pizzen bearbeiten (main)
    * RadioButtons sehen hässlich aus (pizza)
 
 Algorithmus:

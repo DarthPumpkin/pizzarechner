@@ -45,6 +45,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		if (item.getItemId() == R.id.action_add) {
 			Intent intent = new Intent(this, PizzaActivity.class);
 			startActivityForResult(intent, 0);
+		} else if (item.getItemId() == R.id.action_edit) {
+			//do edit stuff
 		}
 		return super.onOptionsItemSelected(item);
 	}
