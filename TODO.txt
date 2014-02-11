@@ -1,0 +1,21 @@
+Bilder:
+
+   * App Icon
+   * ActionBar Pictogramm "Pizza hinzufügen" (optional)
+   * Rechteckige/runde pizza
+
+
+Gui:
+
+   * Erstellte Pizzen darstellen (main)
+   * RadioButtons sehen hässlich aus (pizza)
+
+
+Algorithmus:
+     Eingaben: ArrayList <Pizza>, int personenZahl
+     Globale Variablen: const double STANDARD_SIZE
+     Ausgaben: ArrayList <Pizza>, die alle Pizzen enthält, die zu bestellen sind
+
+Erweiterungsideen:
+
+   * Jede Person kann Wunschbelag äußern, Pizza-Klasse wird um Belag erweitert, nimmt Einfluss auf Empfehlung
