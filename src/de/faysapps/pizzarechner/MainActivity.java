@@ -17,6 +17,7 @@ public class MainActivity extends Activity implements OnClickListener {
 	
 	private TableLayout table;
 	private Button button;
+	private EditText personsET;
 	private ArrayList<Pizza> pizzas;
 
     @Override
@@ -26,6 +27,7 @@ public class MainActivity extends Activity implements OnClickListener {
         
         pizzas = new ArrayList<Pizza>();
         button = (Button) findViewById(R.id.calculateButton);
+        personsET = (EditText) findViewById(R.id.personsET);
         button.setOnClickListener(this);
     }
 
@@ -75,8 +77,15 @@ public class MainActivity extends Activity implements OnClickListener {
 				dialog.dismiss();
 			}
 		});
-		builder.setTitle("Ihr Ergebnis");
-		builder.setMessage("Hier sollte das Ergebnis stehen");
+		try {
+			int persons = Integer.parseInt(personsET.getText().toString());
+			
+			builder.setTitle("Ihr Ergebnis");
+			builder.setMessage("Hier sollte das Ergebnis stehen");
+		} catch (NumberFormatException e) {
+			builder.setTitle("Fehler");
+			builder.setMessage("Unültige PersonenZahl");
+		}
 		builder.create().show();
 	}
     

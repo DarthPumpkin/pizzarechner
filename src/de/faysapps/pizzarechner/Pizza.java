@@ -13,12 +13,18 @@ public class Pizza implements Serializable {
 	public static final double STANDARD_SIZE = 450;
 	public double diameter, width, length, prize;
 	public Pizza(double diameter, double prize) {
+		if (width <= 0 || length <= 0 || prize <= 0) {
+			throw new RuntimeException("invalid values. All parameters must be > 0");
+		}
 		this.diameter = diameter;
 		this.prize = prize;
 		this.width = 0;
 		this.length = 0;
 	}
 	public Pizza(double width, double length, double prize) {
+		if (width <= 0 || length <= 0 || prize <= 0) {
+			throw new RuntimeException("invalid values. All parameters must be > 0");
+		}
 		this.width = width;
 		this.length = length;
 		this.prize = prize;
@@ -34,9 +40,9 @@ public class Pizza implements Serializable {
 	@Override
 	public String toString() {
 		if (diameter == 0) {
-			return width + "cm x " + length + "cm, " + prize + "Û";
+			return width + "cm x " + length + "cm, " + prize + "\u20AC";
 		} else {
-			return "¿" + diameter + "cm, " + prize + "Û";
+			return "\u2300" + diameter + "cm, " + prize + "\u20AC";
 		}
 		
 	}
