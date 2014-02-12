@@ -59,12 +59,8 @@ public class MainActivity extends Activity implements OnClickListener {
 			Bundle bundle = data.getExtras();
 			Pizza pizza = (Pizza) bundle.get("pizza");
 			pizzas.add(pizza);
-			table = (TableLayout) findViewById(R.id.pizzaTable);
-        	TableRow row = new TableRow(this);
-        	TextView rowText = new TextView(this);
-        	rowText.setText(pizza.toString());
-        	row.addView(rowText);
-        	table.addView(row);
+			ListView pizzaLV = (ListView) findViewById(R.id.pizzaLV);
+			
 		}
 	}
 

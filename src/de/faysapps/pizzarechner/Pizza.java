@@ -44,7 +44,6 @@ public class Pizza implements Serializable {
 		} else {
 			return "\u2300" + diameter + "cm, " + prize + "\u20AC";
 		}
-		
 	}
 	public double getDiameter() {
 		return diameter;
