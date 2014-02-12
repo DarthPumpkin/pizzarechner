@@ -3,7 +3,9 @@ Bilder:
    * Rechteckige/runde pizza
 
 Gui:
-   * Erstellte Pizzen darstellen (main)
+   * Erstellte Pizzen darstellen (main):
+   	* Layout für einzelne Reihe bearbeiten
+   	* Adapter Klasse getView() füllen
    * Erstellte Pizzen bearbeiten (main)
    * RadioButtons sehen hässlich aus (pizza)
 
