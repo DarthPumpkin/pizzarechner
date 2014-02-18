@@ -60,6 +60,8 @@ public class MainActivity extends Activity implements OnClickListener {
 			Pizza pizza = (Pizza) bundle.get("pizza");
 			pizzas.add(pizza);
 			ListView pizzaLV = (ListView) findViewById(R.id.pizzaLV);
+			pizzaLV.setAdapter(new PizzaArrayAdapter(
+					this, R.layout.pizza_list_row, (Pizza[]) pizzas.toArray()));
 			
 		}
 	}

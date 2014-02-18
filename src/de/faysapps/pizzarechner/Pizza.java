@@ -10,7 +10,7 @@ public class Pizza implements Serializable {
 	/**
 	 * [cm^2] area of a 30cm pizza required to feed an average adult.
 	 */
-	public static final double STANDARD_SIZE = 450;
+	public static final double STANDARD_SIZE = 706;
 	public double diameter, width, length, prize;
 	public Pizza(double diameter, double prize) {
 		if (width <= 0 || length <= 0 || prize <= 0) {
@@ -32,7 +32,7 @@ public class Pizza implements Serializable {
 	}
 	public double getArea() {
 		//the result of one of the brackets is 0, depending on which constructor was used.
-		return (0.5 * Math.PI * diameter * diameter) + (width * length);
+		return (0.25 * Math.PI * diameter * diameter) + (width * length);
 	}
 	public double getPrizePerSquareCm() {
 		return prize / getArea();
