@@ -1,17 +1,26 @@
 package de.faysapps.pizzarechner;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
-import android.os.Bundle;
+import org.ojalgo.optimisation.Expression;
+import org.ojalgo.optimisation.ExpressionsBasedModel;
+import org.ojalgo.optimisation.Optimisation;
+import org.ojalgo.optimisation.Variable;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.TableLayout;
 
 public class MainActivity extends Activity implements OnClickListener {
 	
@@ -59,9 +68,9 @@ public class MainActivity extends Activity implements OnClickListener {
 			Bundle bundle = data.getExtras();
 			Pizza pizza = (Pizza) bundle.get("pizza");
 			pizzas.add(pizza);
-			ListView pizzaLV = (ListView) findViewById(R.id.pizzaLV);
-			pizzaLV.setAdapter(new PizzaArrayAdapter(
-					this, R.layout.pizza_list_row, (Pizza[]) pizzas.toArray()));
+//			ListView pizzaLV = (ListView) findViewById(R.id.pizzaLV);
+//			pizzaLV.setAdapter(new PizzaArrayAdapter(
+//					this, R.layout.pizza_list_row, (Pizza[]) pizzas.toArray()));
 			
 		}
 	}
@@ -80,8 +89,37 @@ public class MainActivity extends Activity implements OnClickListener {
 		try {
 			int persons = Integer.parseInt(personsET.getText().toString());
 			
+			/*
+			 * using ojAlgo (http://ojalgo.org/) for linear optimization
+			 */
+			//each variable represents the amount of the respective pizza
+			final Variable pizzaVars[] = new Variable[pizzas.size()];
+			for (int i = 0; i < pizzas.size(); i++) {
+				pizzaVars[i] = Variable.make("Pizza" + i)	//name
+						.integer(true)						//we dont want half pizzas
+						.lower(new BigDecimal(0))			//no negative amounts
+						.weight(new BigDecimal(pizzas.get(i).getPrize()));	//prize
+			}
+			
+			//creating a model that includes the obove variables
+			final ExpressionsBasedModel model = new ExpressionsBasedModel();
+			for (Variable pizzaVar : pizzaVars) {
+				model.addVariable(pizzaVar);
+			}
+			
+			//assigning size to each variable
+			final Expression area = model.addExpression("area")
+					.lower(new BigDecimal(persons * Pizza.STANDARD_SIZE));
+					//thats how much it needs (at least) to feed all persons
+			for (int i = 0; i < pizzas.size(); i++) {
+				area.setLinearFactor(pizzaVars[i], pizzas.get(i).getArea());
+			}
+
+			//the actual minimizing
+			model.minimise();
+			
 			builder.setTitle("Ihr Ergebnis");
-			builder.setMessage("Hier sollte das Ergebnis stehen");
+			builder.setMessage(model.toString());
 		} catch (NumberFormatException e) {
 			builder.setTitle("Fehler");
 			builder.setMessage("Unültige PersonenZahl");

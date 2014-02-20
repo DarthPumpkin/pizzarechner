@@ -13,7 +13,7 @@ public class Pizza implements Serializable {
 	public static final double STANDARD_SIZE = 706;
 	public double diameter, width, length, prize;
 	public Pizza(double diameter, double prize) {
-		if (width <= 0 || length <= 0 || prize <= 0) {
+		if (diameter <= 0 || prize <= 0) {
 			throw new RuntimeException("invalid values. All parameters must be > 0");
 		}
 		this.diameter = diameter;
