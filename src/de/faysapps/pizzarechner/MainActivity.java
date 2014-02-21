@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import org.ojalgo.optimisation.Expression;
 import org.ojalgo.optimisation.ExpressionsBasedModel;
+import org.ojalgo.optimisation.GenericSolver;
 import org.ojalgo.optimisation.Optimisation;
 import org.ojalgo.optimisation.Variable;
 
@@ -102,10 +103,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			}
 			
 			//creating a model that includes the obove variables
-			final ExpressionsBasedModel model = new ExpressionsBasedModel();
-			for (Variable pizzaVar : pizzaVars) {
-				model.addVariable(pizzaVar);
-			}
+			final ExpressionsBasedModel model = new ExpressionsBasedModel(pizzaVars);
 			
 			//assigning size to each variable
 			final Expression area = model.addExpression("area")
@@ -116,7 +114,9 @@ public class MainActivity extends Activity implements OnClickListener {
 			}
 
 			//the actual minimizing
-			model.minimise();
+			GenericSolver solver = model.getDefaultSolver();
+			solver.solve();
+//			model.minimise();
 			
 			builder.setTitle("Ihr Ergebnis");
 			builder.setMessage(model.toString());

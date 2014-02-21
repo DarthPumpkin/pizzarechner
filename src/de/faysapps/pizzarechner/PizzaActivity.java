@@ -83,7 +83,7 @@ public class PizzaActivity extends Activity implements OnClickListener {
 			}
 			break;
 		default:
-			Log.d("pizzarechner", "Unbekannter RadioButton wurde gedrŸckt\n at PizzaActivity:51");
+			Log.d("pizzarechner", "Unbekannter RadioButton wurde gedrï¿½ckt\n at PizzaActivity:51");
 		}
 	}
 
