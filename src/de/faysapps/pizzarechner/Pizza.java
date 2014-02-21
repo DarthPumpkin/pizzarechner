@@ -11,7 +11,7 @@ public class Pizza implements Serializable {
 	 * [cm^2] area of a 30cm pizza required to feed an average adult.
 	 */
 	public static final double STANDARD_SIZE = 706;
-	public double diameter, width, length, prize;
+	private double diameter, width, length, prize;
 	public Pizza(double diameter, double prize) {
 		if (diameter <= 0 || prize <= 0) {
 			throw new RuntimeException("invalid values. All parameters must be > 0");

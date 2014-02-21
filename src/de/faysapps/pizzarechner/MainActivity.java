@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import org.ojalgo.optimisation.Expression;
 import org.ojalgo.optimisation.ExpressionsBasedModel;
 import org.ojalgo.optimisation.GenericSolver;
-import org.ojalgo.optimisation.Optimisation;
 import org.ojalgo.optimisation.Variable;
 
 import android.app.Activity;
@@ -89,9 +88,12 @@ public class MainActivity extends Activity implements OnClickListener {
 		});
 		try {
 			int persons = Integer.parseInt(personsET.getText().toString());
-			
 			/*
-			 * using ojAlgo (http://ojalgo.org/) for linear optimization
+			 * using ojAlgo (http://ojalgo.org/) for linear optimization.
+			 * using v33 because this is the latest version targeting Java 5,
+			 * later versions require Java 7 which is not supported by Android.
+			 * Also modified org.ojalgo.optimisation.integer.IntegerSolver because
+			 * it used native-Java calls not supported by Dalvik VM
 			 */
 			//each variable represents the amount of the respective pizza
 			final Variable pizzaVars[] = new Variable[pizzas.size()];
@@ -101,10 +103,8 @@ public class MainActivity extends Activity implements OnClickListener {
 						.lower(new BigDecimal(0))			//no negative amounts
 						.weight(new BigDecimal(pizzas.get(i).getPrize()));	//prize
 			}
-			
-			//creating a model that includes the obove variables
+			//creating a model that includes the above variables
 			final ExpressionsBasedModel model = new ExpressionsBasedModel(pizzaVars);
-			
 			//assigning size to each variable
 			final Expression area = model.addExpression("area")
 					.lower(new BigDecimal(persons * Pizza.STANDARD_SIZE));
@@ -112,14 +112,23 @@ public class MainActivity extends Activity implements OnClickListener {
 			for (int i = 0; i < pizzas.size(); i++) {
 				area.setLinearFactor(pizzaVars[i], pizzas.get(i).getArea());
 			}
-
 			//the actual minimizing
 			GenericSolver solver = model.getDefaultSolver();
 			solver.solve();
-//			model.minimise();
+			
+			String message = "";	//message to be displayed in dialog
+			double overallCost = 0;
+			
+			for (int i = 0; i < pizzas.size(); i++) {
+				Variable tempVar = pizzaVars[i];
+				if (tempVar.getValue().intValue() == 0) continue;
+				message += tempVar.getValue() + "x " + pizzas.get(i).toString() + "\n";
+				overallCost += pizzas.get(i).getPrize();
+			}
+			message += "Gesamtkosten: " + overallCost;
 			
 			builder.setTitle("Ihr Ergebnis");
-			builder.setMessage(model.toString());
+			builder.setMessage(message);
 		} catch (NumberFormatException e) {
 			builder.setTitle("Fehler");
 			builder.setMessage("Unültige PersonenZahl");

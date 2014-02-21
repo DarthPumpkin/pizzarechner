@@ -43,7 +43,7 @@ public class PizzaActivity extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		double diameter, length, width, prize;
-		Pizza pizza;
+		Pizza pizza = null;
 		prize = Double.parseDouble(prizeET.getText().toString());
 		if (!diameterET.getText().toString().equals("")) {	//diameter
 			diameter = Double.parseDouble(diameterET.getText().toString());
@@ -53,6 +53,7 @@ public class PizzaActivity extends Activity implements OnClickListener {
 			width = Double.parseDouble(widthET.getText().toString());
 			pizza = new Pizza(width, length, prize);
 		}
+		Log.d("pizzarechner", pizza.toString());
 		Intent intent = new Intent(this, MainActivity.class);
 		intent.putExtra("pizza", pizza);
 		setResult(RESULT_OK, intent);
