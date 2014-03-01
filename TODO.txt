@@ -3,12 +3,14 @@ Bilder:
    * Rechteckige/runde pizza
 
 Gui:
-   * Erstellte Pizzen darstellen (main):
-   	* Layout für einzelne Reihe bearbeiten
-   	* Adapter Klasse getView() füllen
+   * Darstellung der Pizzen optimieren
    * Erstellte Pizzen bearbeiten (main)
    * RadioButtons sehen hässlich aus --> Bild (s.o.) (pizza)
    * evtl hübscherer (graphisch?, eigene Implementierung von AlertDialog?) Result-Dialog (main)
+   
+Sonstiges:
+   * String-Ausgabe der Pizza-Klasse verbessern
+   * App-Navigation
 
 Erweiterungsideen:
    * Jede Person kann Wunschbelag äußern, Pizza-Klasse wird um Belag erweitert, nimmt Einfluss auf Empfehlung

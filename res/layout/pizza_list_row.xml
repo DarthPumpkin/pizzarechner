@@ -2,6 +2,28 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent" >
-	
+
+	<ImageView
+		android:id="@+id/pizzaFormIV"
+		android:layout_width="50dp"
+		android:layout_height="50dp"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentTop="true"
+		android:src="@drawable/pizza_round" />
+
+	<TextView
+		android:id="@+id/pizzaSizeTV"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentTop="true"
+		android:layout_toRightOf="@+id/pizzaFormIV" />
+
+	<TextView
+		android:id="@+id/pizzaCostTV"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@+id/pizzaSizeTV"
+		android:layout_toRightOf="@+id/pizzaFormIV"
+		android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </RelativeLayout>

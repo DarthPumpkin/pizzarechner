@@ -5,9 +5,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 /**
- * This class is used to customize the rows of the ListView in MainActicity. The
+ * This class is used to customize the rows of the ListView in MainActivity. The
  * respective row view is created in getView (overridden)
  *
  */
@@ -28,11 +30,21 @@ public class PizzaArrayAdapter extends ArrayAdapter<Pizza> {
 		LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		//inflate view from layout resource pizza_list_row.xml
 		View view = inflater.inflate(R.layout.pizza_list_row, parent, false);
+		//finding the views inside the list row by caling findViewById on the listRow
+		ImageView pizzaFormIV = (ImageView) view.findViewById(R.id.pizzaFormIV);
+		TextView pizzaSizeTV = (TextView) view.findViewById(R.id.pizzaSizeTV);
+		TextView pizzaCostTV = (TextView) view.findViewById(R.id.pizzaCostTV);
 		
-		Pizza pizza = pizzas[position];
-		//fill the view here ...
-		//get the textViews and/or image views contained in each row with findViewById(...)
-		//and fill them with pizza values
+		Pizza currentPizza = pizzas[position];
+		
+		/*
+		 * filling the view with pizza vaules now
+		 */
+		if (currentPizza.getDiameter() == 0) {
+			pizzaFormIV.setImageResource(R.drawable.pizza_rect);
+		}
+		pizzaSizeTV.setText(currentPizza.toString());	//to be edited
+		pizzaCostTV.setText(currentPizza.getPrize() + "€");
 		
 		return view;
 	}
