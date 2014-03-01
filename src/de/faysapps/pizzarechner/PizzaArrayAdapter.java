@@ -43,8 +43,8 @@ public class PizzaArrayAdapter extends ArrayAdapter<Pizza> {
 		if (currentPizza.getDiameter() == 0) {
 			pizzaFormIV.setImageResource(R.drawable.pizza_rect);
 		}
-		pizzaSizeTV.setText(currentPizza.toString());	//to be edited
-		pizzaCostTV.setText(currentPizza.getPrize() + "€");
+		pizzaSizeTV.setText(currentPizza.printSize());
+		pizzaCostTV.setText(currentPizza.printPrize());
 		
 		return view;
 	}

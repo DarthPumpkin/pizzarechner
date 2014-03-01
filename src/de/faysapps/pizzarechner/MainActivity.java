@@ -20,11 +20,9 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TableLayout;
 
 public class MainActivity extends Activity implements OnClickListener {
 	
-	private TableLayout table;
 	private Button button;
 	private EditText personsET;
 	private ArrayList<Pizza> pizzas;
@@ -128,10 +126,11 @@ public class MainActivity extends Activity implements OnClickListener {
 		for (int i = 0; i < pizzas.size(); i++) {
 			Variable tempVar = pizzaVars[i];
 			if (tempVar.getValue().intValue() == 0) continue;
-			message += tempVar.getValue() + "x " + pizzas.get(i).toString() + "\n";
-			overallCost += pizzas.get(i).getPrize();
+			message += tempVar.getValue() + "x " + pizzas.get(i).printSize() 
+					+ " je " + pizzas.get(i).printPrize() + "\n";
+			overallCost += tempVar.getValue().doubleValue() * pizzas.get(i).getPrize();
 		}
-		message += "Gesamtkosten: " + overallCost;
+		message += "Gesamtkosten: " + overallCost + "\u20AC";
 		
 		builder.setTitle("Ihr Ergebnis");
 		builder.setMessage(message);

@@ -37,13 +37,20 @@ public class Pizza implements Serializable {
 	public double getPrizePerSquareCm() {
 		return prize / getArea();
 	}
+	
+	public String printSize() {
+		if (diameter == 0) {
+			return width + "cm x " + length + "cm";
+		} else {
+			return diameter + "cm";
+		}
+	}
+	public String printPrize() {
+			return prize + "\u20AC";
+	}
 	@Override
 	public String toString() {
-		if (diameter == 0) {
-			return width + "cm x " + length + "cm, " + prize + "\u20AC";
-		} else {
-			return "\u2300" + diameter + "cm, " + prize + "\u20AC";
-		}
+		return printSize() + ", " + printPrize();
 	}
 	public double getDiameter() {
 		return diameter;
