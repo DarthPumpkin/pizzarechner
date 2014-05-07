@@ -1,6 +1,8 @@
 package de.faysapps.pizzarechner;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -42,9 +44,24 @@ public class PizzaActivity extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		double diameter, length, width, prize;
+		double diameter, length, width, prize = 0;
 		Pizza pizza = null;
-		prize = Double.parseDouble(prizeET.getText().toString());
+		try {
+			prize = Double.parseDouble(prizeET.getText().toString());
+		} catch (NumberFormatException e) {
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// TODO Auto-generated method stub
+					dialog.dismiss();
+				}
+			});
+			builder.setTitle("Fehler");
+			builder.setMessage(e.getMessage());
+			builder.create().show();
+			return;
+		}
 		if (!diameterET.getText().toString().equals("")) {	//diameter
 			diameter = Double.parseDouble(diameterET.getText().toString());
 			pizza = new Pizza(diameter, prize);

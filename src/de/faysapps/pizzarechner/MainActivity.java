@@ -1,6 +1,7 @@
 package de.faysapps.pizzarechner;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import org.ojalgo.optimisation.Expression;
@@ -130,7 +131,10 @@ public class MainActivity extends Activity implements OnClickListener {
 					+ " je " + pizzas.get(i).printPrize() + "\n";
 			overallCost += tempVar.getValue().doubleValue() * pizzas.get(i).getPrize();
 		}
-		message += "Gesamtkosten: " + overallCost + "\u20AC";
+		DecimalFormat f = new DecimalFormat("#0.00"); 
+		message += "Gesamtkosten: " + f.format(overallCost) + "\u20AC" + "\n";
+		message += "Pro Person: " + f.format(overallCost / persons) + "\u20AC";
+		
 		
 		builder.setTitle("Ihr Ergebnis");
 		builder.setMessage(message);
