@@ -3,14 +3,6 @@
 	android:layout_width="match_parent"
 	android:layout_height="match_parent" >
 
-	<ImageView
-		android:id="@+id/pizzaFormIV"
-		android:layout_width="50dp"
-		android:layout_height="50dp"
-		android:layout_alignParentLeft="true"
-		android:layout_alignParentTop="true"
-		android:src="@drawable/pizza_round" />
-
 	<TextView
 		android:id="@+id/pizzaSizeTV"
 		android:layout_width="wrap_content"
@@ -25,5 +17,21 @@
 		android:layout_below="@+id/pizzaSizeTV"
 		android:layout_toRightOf="@+id/pizzaFormIV"
 		android:textAppearance="?android:attr/textAppearanceSmall" />
+
+	<ImageView
+		android:id="@+id/pizzaFormIV"
+		android:layout_width="50dp"
+		android:layout_height="50dp"
+		android:layout_alignParentTop="true"
+		android:layout_toRightOf="@+id/checkBox1"
+		android:src="@drawable/pizza_round" />
+
+	<CheckBox
+		android:id="@+id/checkBox1"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignBottom="@+id/pizzaSizeTV"
+		android:layout_alignParentLeft="true"
+		android:visibility="gone" />
 
 </RelativeLayout>

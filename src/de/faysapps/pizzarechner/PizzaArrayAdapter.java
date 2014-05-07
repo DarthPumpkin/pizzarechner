@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,11 +17,13 @@ import android.widget.TextView;
 public class PizzaArrayAdapter extends ArrayAdapter<Pizza> {
 	private final Context context;
 	private final Pizza[] pizzas;
+	private final boolean inEditingMode;
 
-	public PizzaArrayAdapter(Context context, int resource, Pizza[] objects) {
+	public PizzaArrayAdapter(Context context, int resource, Pizza[] objects, boolean inEditingMode) {
 		super(context, resource, objects);
 		this.context = context;
 		this.pizzas = objects;
+		this.inEditingMode = inEditingMode;
 		// TODO Auto-generated constructor stub
 	}
 
@@ -34,6 +37,7 @@ public class PizzaArrayAdapter extends ArrayAdapter<Pizza> {
 		ImageView pizzaFormIV = (ImageView) view.findViewById(R.id.pizzaFormIV);
 		TextView pizzaSizeTV = (TextView) view.findViewById(R.id.pizzaSizeTV);
 		TextView pizzaCostTV = (TextView) view.findViewById(R.id.pizzaCostTV);
+		CheckBox cB = (CheckBox) view.findViewById(R.id.checkBox1);
 		
 		Pizza currentPizza = pizzas[position];
 		
@@ -45,6 +49,7 @@ public class PizzaArrayAdapter extends ArrayAdapter<Pizza> {
 		}
 		pizzaSizeTV.setText(currentPizza.printSize());
 		pizzaCostTV.setText(currentPizza.printPrize());
+		cB.setVisibility((inEditingMode) ? View.VISIBLE : View.GONE);
 		
 		return view;
 	}

@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -79,9 +80,21 @@ public class MainActivity extends Activity implements OnClickListener {
 		} else if (item.getItemId() == R.id.action_edit) {
 			inEditingMode = true;
 			invalidateOptionsMenu();
+			updateList();
+		} else if (item.getItemId() == R.id.action_delete_pizza) {
+			ListView lv = (ListView) findViewById(R.id.pizzaLV);
+			for (int i = 0; i < lv.getChildCount(); i++) {
+				View v = lv.getChildAt(i);
+				CheckBox cb = (CheckBox) v.findViewById(R.id.checkBox1);
+				if (cb.isChecked()) {
+					pizzas.remove(i);
+				}
+			}
+			updateList();
 		} else if (item.getItemId() == R.id.action_editing_done) {
 			inEditingMode = false;
 			invalidateOptionsMenu();
+			updateList();
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -94,11 +107,15 @@ public class MainActivity extends Activity implements OnClickListener {
 			Bundle bundle = data.getExtras();
 			Pizza pizza = (Pizza) bundle.get("pizza");
 			pizzas.add(pizza);
-			ListView pizzaLV = (ListView) findViewById(R.id.pizzaLV);
-			Pizza[] pizzaArray = new Pizza[pizzas.size()];
-			pizzaLV.setAdapter(new PizzaArrayAdapter(
-					this, R.layout.pizza_list_row, pizzas.toArray(pizzaArray)));
+			updateList();
 		}
+	}
+	
+	private void updateList() {
+		ListView pizzaLV = (ListView) findViewById(R.id.pizzaLV);
+		Pizza[] pizzaArray = new Pizza[pizzas.size()];
+		pizzaLV.setAdapter(new PizzaArrayAdapter(
+				this, R.layout.pizza_list_row, pizzas.toArray(pizzaArray), inEditingMode));
 	}
 
 
