@@ -27,12 +27,14 @@ public class MainActivity extends Activity implements OnClickListener {
 	private Button button;
 	private EditText personsET;
 	private ArrayList<Pizza> pizzas;
+	private boolean inEditingMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
+        inEditingMode = false;
         pizzas = new ArrayList<Pizza>();
         button = (Button) findViewById(R.id.calculateButton);
         personsET = (EditText) findViewById(R.id.personsET);
@@ -41,6 +43,27 @@ public class MainActivity extends Activity implements OnClickListener {
 
 
     @Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+    	MenuItem addButton = menu.getItem(0);
+    	MenuItem editButton = menu.getItem(1);
+    	MenuItem deleteButton = menu.getItem(2);
+    	MenuItem editingDoneButton = menu.getItem(3);
+    	if (inEditingMode) {
+    		addButton.setVisible(false);
+    		editButton.setVisible(false);
+    		deleteButton.setVisible(true);
+    		editingDoneButton.setVisible(true);
+    	} else {
+    		addButton.setVisible(true);
+    		editButton.setVisible(true);
+    		deleteButton.setVisible(false);
+    		editingDoneButton.setVisible(false);
+    	}
+		return super.onPrepareOptionsMenu(menu);
+	}
+
+
+	@Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.actionbar_buttons, menu);
@@ -54,7 +77,11 @@ public class MainActivity extends Activity implements OnClickListener {
 			Intent intent = new Intent(this, PizzaActivity.class);
 			startActivityForResult(intent, 0);
 		} else if (item.getItemId() == R.id.action_edit) {
-			//do edit stuff
+			inEditingMode = true;
+			invalidateOptionsMenu();
+		} else if (item.getItemId() == R.id.action_editing_done) {
+			inEditingMode = false;
+			invalidateOptionsMenu();
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -71,7 +98,6 @@ public class MainActivity extends Activity implements OnClickListener {
 			Pizza[] pizzaArray = new Pizza[pizzas.size()];
 			pizzaLV.setAdapter(new PizzaArrayAdapter(
 					this, R.layout.pizza_list_row, pizzas.toArray(pizzaArray)));
-			
 		}
 	}
 

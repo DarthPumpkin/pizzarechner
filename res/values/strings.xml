@@ -6,5 +6,7 @@
 	<string name="hello_world">Hello world!</string>
 	<string name="action_add">Pizza hinzufügen</string>
 	<string name="action_edit">Bearbeiten</string>
+	<string name="action_delete_pizza">Löschen</string>
+	<string name="action_editing_done">Fertig</string>
 
 </resources>
