@@ -1,4 +1,4 @@
-package de.faysapps.pizzarechner;
+package de.faysapps.pizzarechner.ui;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -23,6 +23,9 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import de.faysapps.pizzarechner.R;
+import de.faysapps.pizzarechner.model.Pizza;
+
 public class MainActivity extends Activity implements OnClickListener {
 	
 	private Button button;
@@ -36,7 +39,7 @@ public class MainActivity extends Activity implements OnClickListener {
         setContentView(R.layout.activity_main);
         
         inEditingMode = false;
-        pizzas = new ArrayList<Pizza>();
+        pizzas = new ArrayList<>();
         button = (Button) findViewById(R.id.calculateButton);
         personsET = (EditText) findViewById(R.id.personsET);
         button.setOnClickListener(this);
@@ -158,7 +161,7 @@ public class MainActivity extends Activity implements OnClickListener {
 				.lower(new BigDecimal(persons * Pizza.STANDARD_SIZE));
 				//thats how much it needs (at least) to feed all persons
 		for (int i = 0; i < pizzas.size(); i++) {
-			area.setLinearFactor(pizzaVars[i], pizzas.get(i).getArea());
+			area.setLinearFactor(pizzaVars[i], pizzas.get(i).getShape().getArea());
 		}
 		//the actual minimizing
 		GenericSolver solver = model.getDefaultSolver();
@@ -170,8 +173,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		for (int i = 0; i < pizzas.size(); i++) {
 			Variable tempVar = pizzaVars[i];
 			if (tempVar.getValue().intValue() == 0) continue;
-			message += tempVar.getValue() + "x " + pizzas.get(i).printSize() 
-					+ " je " + pizzas.get(i).printPrize() + "\n";
+			message += tempVar.getValue() + "x " + pizzas.get(i).getShape().dimensionString()
+					+ " je " + pizzas.get(i).prizeString() + "\n";
 			overallCost += tempVar.getValue().doubleValue() * pizzas.get(i).getPrize();
 		}
 		DecimalFormat f = new DecimalFormat("#0.00"); 

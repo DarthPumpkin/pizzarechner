@@ -1,4 +1,4 @@
-package de.faysapps.pizzarechner;
+package de.faysapps.pizzarechner.ui;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -12,6 +12,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
+
+import de.faysapps.pizzarechner.R;
+import de.faysapps.pizzarechner.model.Pizza;
+import de.faysapps.pizzarechner.model.Shapes;
 
 public class PizzaActivity extends Activity implements OnClickListener {
 	
@@ -64,11 +68,11 @@ public class PizzaActivity extends Activity implements OnClickListener {
 		}
 		if (!diameterET.getText().toString().equals("")) {	//diameter
 			diameter = Double.parseDouble(diameterET.getText().toString());
-			pizza = new Pizza(diameter, prize);
+			pizza = new Pizza(Shapes.circle(diameter), prize);
 		} else {	//length and width
 			length = Double.parseDouble(lengthET.getText().toString());
 			width = Double.parseDouble(widthET.getText().toString());
-			pizza = new Pizza(width, length, prize);
+			pizza = new Pizza(Shapes.rectangle(width, length), prize);
 		}
 		Log.d("pizzarechner", pizza.toString());
 		Intent intent = new Intent(this, MainActivity.class);

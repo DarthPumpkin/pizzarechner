@@ -1,4 +1,4 @@
-package de.faysapps.pizzarechner;
+package de.faysapps.pizzarechner.ui;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,10 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import de.faysapps.pizzarechner.R;
+import de.faysapps.pizzarechner.model.Pizza;
+import de.faysapps.pizzarechner.model.Shape;
 
 /**
  * This class is used to customize the rows of the ListView in MainActivity. The
@@ -44,11 +48,11 @@ public class PizzaArrayAdapter extends ArrayAdapter<Pizza> {
 		/*
 		 * filling the view with pizza vaules now
 		 */
-		if (currentPizza.getDiameter() == 0) {
+		if (currentPizza.getShape().geometry() == Shape.Geometry.RECTANGLE) {
 			pizzaFormIV.setImageResource(R.drawable.pizza_rect);
 		}
-		pizzaSizeTV.setText(currentPizza.printSize());
-		pizzaCostTV.setText(currentPizza.printPrize());
+		pizzaSizeTV.setText(currentPizza.getShape().dimensionString());
+		pizzaCostTV.setText(currentPizza.prizeString());
 		cB.setVisibility((inEditingMode) ? View.VISIBLE : View.GONE);
 		
 		return view;
